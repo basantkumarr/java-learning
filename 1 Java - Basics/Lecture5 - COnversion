@@ -1,0 +1,234 @@
+# Java Type Conversion & Type Casting — Brief Notes
+
+## 1. Type Conversion
+
+Type conversion means converting a value from one data type to another.
+
+Java has two main types:
+
+* **Implicit Conversion (Widening)**
+* **Explicit Casting (Narrowing)**
+
+---
+
+## 2. Widening Conversion
+
+* Smaller type → larger compatible type
+* Done **automatically** by Java.
+* Usually no data loss.
+
+```text id="widening"
+byte → short → int → long → float → double
+```
+
+Example:
+
+```java
+int x = 10;
+double y = x;
+```
+
+Here:
+
+```text
+int → double
+```
+
+No explicit casting is required.
+
+---
+
+## 3. Narrowing Conversion
+
+* Larger type → smaller type
+* Must be done **explicitly**.
+* May cause data loss.
+
+```java
+double x = 10.5;
+int y = (int) x;
+```
+
+Result:
+
+```text
+10
+```
+
+`.5` is truncated.
+
+### Syntax
+
+```java
+targetType variable = (targetType) value;
+```
+
+---
+
+## 4. Data Loss
+
+Narrowing can cause:
+
+* Decimal truncation
+* Overflow
+* Loss of precision
+
+Example:
+
+```java
+double d = 10.99;
+int i = (int) d;
+```
+
+Result:
+
+```text
+10
+```
+
+**Casting does not round the value; it truncates the fractional part.**
+
+---
+
+## 5. Boolean Conversion
+
+`boolean` cannot be converted to numeric types.
+
+❌ Invalid:
+
+```java
+int x = (int) true;
+```
+
+Java does not treat:
+
+```text
+true = 1
+false = 0
+```
+
+Unlike some other languages.
+
+---
+
+## 6. Arithmetic Type Promotion
+
+Java automatically promotes smaller integer types during arithmetic operations.
+
+```java
+byte a = 10;
+byte b = 20;
+
+int c = a + b;
+```
+
+`a + b` becomes an **int**.
+
+### Important Rule
+
+Arithmetic operations on:
+
+```text
+byte
+short
+char
+```
+
+are generally promoted to **int**.
+
+---
+
+## 7. Why `char + char` Becomes `int`
+
+Example:
+
+```java
+char a = 'A';
+char b = 'B';
+
+int result = a + b;
+```
+
+Output:
+
+```text
+131
+```
+
+Because:
+
+```text
+'A' = 65
+'B' = 66
+
+65 + 66 = 131
+```
+
+So:
+
+```java
+char + char → int
+```
+
+---
+
+## 8. Type Promotion Example
+
+```java
+byte b = 10;
+short s = 20;
+int i = 30;
+
+int result = b + s + i;
+```
+
+All are promoted to `int` during the expression.
+
+---
+
+## 9. Widening vs Narrowing
+
+| Widening         | Narrowing      |
+| ---------------- | -------------- |
+| Small → Large    | Large → Small  |
+| Automatic        | Explicit       |
+| Usually safe     | May lose data  |
+| `int → long`     | `double → int` |
+| No cast required | Cast required  |
+
+---
+
+## 10. Important Rules
+
+* **Widening is automatic.**
+* **Narrowing requires explicit casting.**
+* Narrowing can cause **data loss**.
+* Decimal values are truncated when converted to integer.
+* `boolean` cannot be converted to/from numeric types.
+* `byte`, `short`, and `char` are generally promoted to `int` during arithmetic.
+* `char + char` produces an `int`.
+* Java performs **type promotion during expressions**.
+
+### Quick Revision
+
+```text id="quick"
+Widening:
+byte → short → int → long → float → double
+        ↓
+   Automatic
+
+Narrowing:
+double → int
+        ↓
+   Explicit Cast
+        ↓
+    Data Loss
+```
+
+### Git Commit
+
+```bash
+git add .
+git commit -m "Add Java type conversion and casting notes"
+git push
+```
